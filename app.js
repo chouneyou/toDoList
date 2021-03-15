@@ -18,6 +18,8 @@ mongoose.connect("mongodb+srv://chenyu_1:Test-123@cluster0.eh8y3.mongodb.net/tod
     useCreateIndex: true,
     });
 
+mongoose.connection.on('error', console.error.bind(console, 'connection error:')); 
+
 const itemSchema=new mongoose.Schema({
     name:String
 });
