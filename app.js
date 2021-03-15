@@ -12,7 +12,11 @@ app.set("view engine", "ejs");
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(express.static("public"));
 
-mongoose.connect("mongodb+srv://chenyu_1:Test-123@cluster0.eh8y3.mongodb.net/todolistDB",{ useUnifiedTopology: true });
+mongoose.connect("mongodb+srv://chenyu_1:Test-123@cluster0.eh8y3.mongodb.net/todolistDB",{ 
+    useUnifiedTopology: true,
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    });
 
 const itemSchema=new mongoose.Schema({
     name:String
@@ -41,7 +45,6 @@ const List = mongoose.model("List", listSchema);
 const day = date.getDay();
 
 app.get("/", function(req, res){
-
 
 Item.find(function(err,foundItems){
     if (foundItems.length===0){
@@ -118,5 +121,5 @@ List.findOneAndUpdate({name:listName},{$pull:{items:{_id:checkedItemId}}},functi
 });
 
 app.listen(process.env.PORT || 3000, function(){
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log("Express server listening on port");
   });
